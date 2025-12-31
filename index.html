@@ -1,0 +1,333 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bonne Année 2026 !</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Poppins:wght@300;400;600;700&display=swap');
+        
+        body {
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%);
+            overflow: hidden;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        /* Feux d'artifice */
+        .firework {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            animation: explode 1s ease-out forwards;
+        }
+        
+        @keyframes explode {
+            0% {
+                transform: translate(0, 0);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--tx), var(--ty));
+                opacity: 0;
+            }
+        }
+        
+        /* Confettis */
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            animation: fall linear infinite;
+        }
+        
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+        
+        /* Animations */
+        .glow {
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.8),
+                         0 0 40px rgba(255, 215, 0, 0.6),
+                         0 0 60px rgba(255, 215, 0, 0.4);
+        }
+        
+        .fade-in {
+            animation: fadeIn 1.5s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9) translateY(20px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        
+        .bounce-in {
+            animation: bounceIn 1s ease-out;
+        }
+        
+        @keyframes bounceIn {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .pulse {
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .float {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .sparkle {
+            animation: sparkle 1.5s ease-in-out infinite;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+        }
+
+        /* Nombre 2026 animé */
+        .year-2026 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 900;
+            font-size: 8rem;
+            background: linear-gradient(45deg, #fbbf24, #f59e0b, #ef4444, #ec4899, #a855f7, #3b82f6);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 3s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        @media (max-width: 768px) {
+            .year-2026 {
+                font-size: 5rem;
+            }
+        }
+
+        /* Spotify Embed Responsive */
+        .spotify-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        .spotify-container iframe {
+            width: 40%;
+            min-width: 280px;
+        }
+
+        @media (max-width: 768px) {
+            .spotify-container iframe {
+                width: 90%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .year-2026 {
+                font-size: 3.5rem;
+            }
+            .spotify-container iframe {
+                width: 95%;
+                height: 280px;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+    <div id="confettiContainer"></div>
+    <div id="fireworksContainer"></div>
+    
+
+
+    <!-- Écran d'accueil -->
+    <div id="welcomeScreen" class="text-center fade-in w-full max-w-2xl">
+        <div class="bg-white/10 backdrop-blur-xl rounded-3xl p-8 md:p-14 shadow-2xl border-2 border-white/30">
+            <div class="text-6xl md:text-8xl mb-6 bounce-in">🎊</div>
+            <h1 class="year-2026 mb-6">2026</h1>
+            <h2 class="text-3xl md:text-5xl font-bold text-white mb-6 glow">Bonne Année !</h2>
+            <p class="text-white/95 mb-8 md:mb-10 text-lg md:text-xl leading-relaxed">
+                Entrez votre prénom pour recevoir vos vœux de nouvelle année
+            </p>
+            <input 
+                type="text" 
+                id="nameInput" 
+                placeholder="Votre prénom..." 
+                class="w-full px-6 md:px-8 py-3 md:py-4 rounded-full text-center text-lg md:text-xl font-semibold focus:outline-none focus:ring-4 focus:ring-yellow-400/60 mb-6 md:mb-8 shadow-lg"
+            >
+            <button 
+                id="submitBtn"
+                class="w-full bg-gradient-to-r from-yellow-500 via-pink-500 to-purple-600 text-white font-bold py-3 md:py-4 px-8 rounded-full text-lg md:text-xl hover:scale-105 transition-all shadow-2xl pulse"
+            >
+                ✨ Découvrir mes vœux ✨
+            </button>
+        </div>
+    </div>
+    
+    <!-- Écran de vœux -->
+    <div id="greetingScreen" class="text-center hidden w-full max-w-3xl">
+        <div class="bg-white/10 backdrop-blur-xl rounded-3xl p-8 md:p-14 shadow-2xl border-2 border-white/30 fade-in">
+            <div class="text-7xl md:text-9xl mb-8 float">🎉</div>
+            <h1 class="text-4xl md:text-6xl font-bold text-white mb-4 glow" id="greetingText"></h1>
+            <div class="year-2026 mb-8 pulse">2026</div>
+            <p class="text-2xl md:text-3xl text-yellow-300 mb-8 md:mb-10 pulse font-semibold">Bonne Année !</p>
+            <div class="text-white/95 text-base md:text-xl space-y-4 md:space-y-5 mb-8 md:mb-10 leading-relaxed">
+                <p>🎊 Que cette nouvelle année vous apporte bonheur et réussite</p>
+                <p>✨ Que tous vos projets se réalisent</p>
+                <p>🌟 Que 2026 soit remplie de moments magiques</p>
+                <p>💫 Santé, amour et prospérité pour vous et vos proches</p>
+            </div>
+            <div class="flex gap-4 md:gap-6 justify-center text-4xl md:text-5xl mb-8 md:mb-10 flex-wrap">
+                <span class="sparkle">🎆</span>
+                <span class="sparkle" style="animation-delay: 0.2s">🎊</span>
+                <span class="sparkle" style="animation-delay: 0.4s">🥂</span>
+                <span class="sparkle" style="animation-delay: 0.6s">🎉</span>
+                <span class="sparkle" style="animation-delay: 0.8s">🎈</span>
+            </div>
+            <div class="spotify-container">
+                <iframe id="spotifyPlayer" data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/6qqrTXSdwiJaq8SO0X2lSe?utm_source=generator&utm_launch_source=player" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="eager"></iframe>
+            </div>
+            <button 
+                id="restartBtn"
+                class="bg-white/25 text-white font-bold py-3 px-6 md:px-8 rounded-full hover:bg-white/35 transition-all text-base md:text-lg shadow-lg hover:scale-105"
+            >
+                🔄 Souhaiter à quelqu'un d'autre
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Création des confettis
+        function createConfetti() {
+            const confetti = document.createElement('div');
+            confetti.classList.add('confetti');
+            const colors = ['#fbbf24', '#f59e0b', '#ef4444', '#ec4899', '#a855f7', '#3b82f6', '#10b981'];
+            confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            confetti.style.left = Math.random() * 100 + '%';
+            confetti.style.animationDuration = Math.random() * 3 + 3 + 's';
+            confetti.style.animationDelay = Math.random() * 2 + 's';
+            confetti.style.opacity = Math.random() * 0.7 + 0.3;
+            document.getElementById('confettiContainer').appendChild(confetti);
+            
+            setTimeout(() => confetti.remove(), 6000);
+        }
+        
+        setInterval(createConfetti, 200);
+        
+        // Création des feux d'artifice
+        function createFirework(x, y) {
+            const colors = ['#fbbf24', '#f59e0b', '#ef4444', '#ec4899', '#a855f7', '#3b82f6', '#10b981'];
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            
+            for (let i = 0; i < 30; i++) {
+                const firework = document.createElement('div');
+                firework.classList.add('firework');
+                firework.style.backgroundColor = color;
+                firework.style.left = x + 'px';
+                firework.style.top = y + 'px';
+                
+                const angle = (Math.PI * 2 * i) / 30;
+                const velocity = 50 + Math.random() * 50;
+                const tx = Math.cos(angle) * velocity;
+                const ty = Math.sin(angle) * velocity;
+                
+                firework.style.setProperty('--tx', tx + 'px');
+                firework.style.setProperty('--ty', ty + 'px');
+                
+                document.getElementById('fireworksContainer').appendChild(firework);
+                
+                setTimeout(() => firework.remove(), 1000);
+            }
+        }
+        
+        // Feux d'artifice automatiques
+        function autoFireworks() {
+            const x = Math.random() * window.innerWidth;
+            const y = Math.random() * window.innerHeight * 0.6;
+            createFirework(x, y);
+        }
+        
+        setInterval(autoFireworks, 2000);
+        
+        // Gestion des écrans
+        const nameInput = document.getElementById('nameInput');
+        const submitBtn = document.getElementById('submitBtn');
+        const welcomeScreen = document.getElementById('welcomeScreen');
+        const greetingScreen = document.getElementById('greetingScreen');
+        const greetingText = document.getElementById('greetingText');
+        const restartBtn = document.getElementById('restartBtn');
+        
+        submitBtn.addEventListener('click', () => {
+            const name = nameInput.value.trim();
+            if (name) {
+                greetingText.textContent = `${name}, nous vous souhaitons une`;
+                welcomeScreen.classList.add('hidden');
+                greetingScreen.classList.remove('hidden');
+                
+                // Play Spotify track
+                setTimeout(() => {
+                    const spotifyPlayer = document.getElementById('spotifyPlayer');
+                    if (spotifyPlayer) {
+                        const playButton = spotifyPlayer.contentDocument?.querySelector('[data-testid="play"]');
+                        if (playButton) {
+                            playButton.click();
+                        }
+                    }
+                }, 500);
+                
+                // Feux d'artifice spéciaux
+                for (let i = 0; i < 5; i++) {
+                    setTimeout(() => {
+                        const x = Math.random() * window.innerWidth;
+                        const y = Math.random() * window.innerHeight * 0.5;
+                        createFirework(x, y);
+                    }, i * 300);
+                }
+            } else {
+                nameInput.focus();
+                nameInput.classList.add('ring-4', 'ring-pink-500');
+                setTimeout(() => {
+                    nameInput.classList.remove('ring-4', 'ring-pink-500');
+                }, 1000);
+            }
+        });
+        
+        nameInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                submitBtn.click();
+            }
+        });
+        
+        restartBtn.addEventListener('click', () => {
+            greetingScreen.classList.add('hidden');
+            welcomeScreen.classList.remove('hidden');
+            nameInput.value = '';
+            nameInput.focus();
+        });
+        
+        // Focus automatique
+        nameInput.focus();
+    </script>
+</body>
+</html>
