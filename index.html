@@ -126,31 +126,9 @@
             }
         }
 
-        /* Spotify Embed Responsive */
-        .spotify-container {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 2rem;
-        }
-
-        .spotify-container iframe {
-            width: 40%;
-            min-width: 280px;
-        }
-
-        @media (max-width: 768px) {
-            .spotify-container iframe {
-                width: 90%;
-            }
-        }
-
         @media (max-width: 480px) {
             .year-2026 {
                 font-size: 3.5rem;
-            }
-            .spotify-container iframe {
-                width: 95%;
-                height: 280px;
             }
         }
     </style>
@@ -158,6 +136,11 @@
 <body class="min-h-screen flex items-center justify-center p-4">
     <div id="confettiContainer"></div>
     <div id="fireworksContainer"></div>
+    
+    <!-- Audio Player -->
+    <audio id="backgroundAudio" preload="auto">
+        <source src="AUD-20251231-WA0092.mp3" type="audio/mpeg">
+    </audio>
     
 
 
@@ -204,9 +187,6 @@
                 <span class="sparkle" style="animation-delay: 0.4s">🥂</span>
                 <span class="sparkle" style="animation-delay: 0.6s">🎉</span>
                 <span class="sparkle" style="animation-delay: 0.8s">🎈</span>
-            </div>
-            <div class="spotify-container">
-                <iframe id="spotifyPlayer" data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/6qqrTXSdwiJaq8SO0X2lSe?utm_source=generator&utm_launch_source=player" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="eager"></iframe>
             </div>
             <button 
                 id="restartBtn"
@@ -285,16 +265,9 @@
                 welcomeScreen.classList.add('hidden');
                 greetingScreen.classList.remove('hidden');
                 
-                // Play Spotify track
-                setTimeout(() => {
-                    const spotifyPlayer = document.getElementById('spotifyPlayer');
-                    if (spotifyPlayer) {
-                        const playButton = spotifyPlayer.contentDocument?.querySelector('[data-testid="play"]');
-                        if (playButton) {
-                            playButton.click();
-                        }
-                    }
-                }, 500);
+                // Play background audio
+                const audio = document.getElementById('backgroundAudio');
+                audio.play().catch(err => console.log('Audio autoplay failed:', err));
                 
                 // Feux d'artifice spéciaux
                 for (let i = 0; i < 5; i++) {
